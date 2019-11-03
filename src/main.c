@@ -180,9 +180,9 @@ void initialize() {
   initVector(&bullets);
   player.direction = 0.0;
   player.entity.x = 200.0;
-  player.entity.y = -200.0;
+  player.entity.y = 0.0;
   player.entity.dx = 0.0;
-  player.entity.dy = 1.4;
+  player.entity.dy = -4.0;
 }
 
 // Where the force is coming from
@@ -250,7 +250,7 @@ void loop() {
   // Move bullets
   for(int i = (int)(lengthVector(&bullets)/sizeof(Bullet)) -1; i >= 0; i--) {
     Bullet* bullet_ptr = getVector(&bullets, i*sizeof(Bullet));
-    if(bullet_ptr->ticks > 50000) {
+    if(bullet_ptr->ticks > 5000) {
       removeVector(&bullets, i*sizeof(Bullet), sizeof(Bullet));
       continue;
     }
