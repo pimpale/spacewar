@@ -14,7 +14,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 LDFLAGS := -lm -lX11
 
 CC := clang
-CPPFLAGS ?= $(INC_FLAGS) -std=c11 -MMD -MP -O0
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -O0
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)

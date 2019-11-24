@@ -259,7 +259,10 @@ void loop() {
     bullet_ptr->entity = apply_movement(bullet_ptr->entity);
   }
 
-  usleep(40*1000);
+  struct timespec ts = { .tv_sec = 0, .tv_nsec = 40*1000*1000  };
+  nanosleep(&ts, NULL);
+
+  //usleep(40*1000);
   XSetForeground(dis, gc, 0xFFFFFF);
   XFillRectangle(dis, win, gc, 0, 0, FRAME_XSIZE, FRAME_YSIZE);
   XSetForeground(dis, gc, 0x000000);
