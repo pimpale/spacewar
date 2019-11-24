@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -230,17 +231,19 @@ void loop() {
     player.direction += 0.1;
   }
   if(user_input.q) {
-    double bullet_velocity = 5;
-    double bullet_directional_offset = 0;
-    Bullet new_bullet;
-    new_bullet.ticks = 0;
-    new_bullet.entity.x = player.entity.x;
-    new_bullet.entity.y = player.entity.y;
-    new_bullet.entity.dx = player.entity.dx
-      + bullet_velocity*cos(player.direction+bullet_directional_offset);
-    new_bullet.entity.dy = player.entity.dy
-      + bullet_velocity*sin(player.direction+bullet_directional_offset);
-    memcpy(pushVector(&bullets, sizeof(Bullet)), &new_bullet, sizeof(Bullet));
+    for(int i = 0; i < 1000; i++) {
+      double bullet_velocity = 5.0 + (rand() % 1000 - 500)/1000.0;
+      double bullet_directional_offset = (rand() % 1000 - 500)/100000.0;
+      Bullet new_bullet;
+      new_bullet.ticks = 0;
+      new_bullet.entity.x = player.entity.x;
+      new_bullet.entity.y = player.entity.y;
+      new_bullet.entity.dx = player.entity.dx
+        + bullet_velocity*cos(player.direction+bullet_directional_offset);
+      new_bullet.entity.dy = player.entity.dy
+        + bullet_velocity*sin(player.direction+bullet_directional_offset);
+      memcpy(pushVector(&bullets, sizeof(Bullet)), &new_bullet, sizeof(Bullet));
+    }
   }
 
   // Move player
@@ -250,7 +253,8 @@ void loop() {
   // Move bullets
   for(int i = (int)(lengthVector(&bullets)/sizeof(Bullet)) -1; i >= 0; i--) {
     Bullet* bullet_ptr = getVector(&bullets, i*sizeof(Bullet));
-    if(bullet_ptr->ticks > 5000) {
+    double distance = hypot(bullet_ptr->entity.x, bullet_ptr->entity.y);
+    if(bullet_ptr->ticks > 500 || distance < 20) {
       removeVector(&bullets, i*sizeof(Bullet), sizeof(Bullet));
       continue;
     }
