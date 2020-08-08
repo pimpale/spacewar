@@ -34,11 +34,15 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(MKDIR_P) $(dir $@)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-
 .PHONY: clean
+.PHONY: compilation-db
+.PHONY: frama-c
 
 clean:
 	$(RM) -r $(BUILD_DIR)
+
+compilation-db: clean
+	bear make
 
 -include $(DEPS)
 

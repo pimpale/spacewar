@@ -231,9 +231,9 @@ void loop() {
     player.direction += 0.1;
   }
   if(user_input.q) {
-    for(int i = 0; i < 1000; i++) {
+    for(int i = 0; i < 10; i++) {
       double bullet_velocity = 5.0 + (rand() % 1000 - 500)/1000.0;
-      double bullet_directional_offset = (rand() % 1000 - 500)/100000.0;
+      double bullet_directional_offset = (rand() % 1000 - 500)/1000.0;
       Bullet new_bullet;
       new_bullet.ticks = 0;
       new_bullet.entity.x = player.entity.x;
