@@ -196,7 +196,7 @@ Entity apply_gravity(Entity e) {
 }
 
 Entity apply_movement(Entity e) {
-  double boundary = FRAME_XSIZE/2 -1;
+  double boundary = FRAME_XSIZE/2.0 -1;
   double distance = hypot(e.x, e.y);
   if(distance > boundary+1) {
     double distance = hypot(e.x, e.y);
@@ -278,14 +278,14 @@ void loop() {
     XSetForeground(dis, gc, 0x0000FF);
     XPoint points[3];
 
-    points[0].x = player.entity.x + player_length*cos(player.direction) + FRAME_XSIZE/2;
-    points[0].y = player.entity.y + player_length*sin(player.direction) + FRAME_YSIZE/2;
+    points[0].x = player.entity.x + player_length*cos(player.direction) + FRAME_XSIZE/2.0;
+    points[0].y = player.entity.y + player_length*sin(player.direction) + FRAME_YSIZE/2.0;
 
-    points[1].x = player.entity.x + -player_length*cos(player.direction) + player_width*cos(player.direction + PI/4) + FRAME_XSIZE/2;
-    points[1].y = player.entity.y + -player_length*sin(player.direction) + player_width*sin(player.direction + PI/4) + FRAME_YSIZE/2;
+    points[1].x = player.entity.x + -player_length*cos(player.direction) + player_width*cos(player.direction + PI/4) + FRAME_XSIZE/2.0;
+    points[1].y = player.entity.y + -player_length*sin(player.direction) + player_width*sin(player.direction + PI/4) + FRAME_YSIZE/2.0;
 
-    points[2].x = player.entity.x + -player_length*cos(player.direction) + player_width*cos(player.direction - PI/4) + FRAME_XSIZE/2;
-    points[2].y = player.entity.y + -player_length*sin(player.direction) + player_width*sin(player.direction - PI/4) + FRAME_YSIZE/2;
+    points[2].x = player.entity.x + -player_length*cos(player.direction) + player_width*cos(player.direction - PI/4) + FRAME_XSIZE/2.0;
+    points[2].y = player.entity.y + -player_length*sin(player.direction) + player_width*sin(player.direction - PI/4) + FRAME_YSIZE/2.0;
 
     XFillPolygon(dis, win, gc, points, 3, Convex, CoordModeOrigin);
   }
@@ -301,10 +301,10 @@ void loop() {
     XSetForeground(dis, gc, 0xFF0000);
     for(int i = 0; i < lengthVector(&bullets)/sizeof(Bullet); i++) {
       Bullet bullet = *VEC_GET(&bullets, i, Bullet);
-      int x1 = bullet.entity.x + FRAME_XSIZE/2;
-      int y1 = bullet.entity.y + FRAME_YSIZE/2;
-      int x2 = bullet.entity.x + bullet.entity.dx + FRAME_XSIZE/2;
-      int y2 = bullet.entity.y + bullet.entity.dy + FRAME_YSIZE/2;
+      int x1 = bullet.entity.x + FRAME_XSIZE/2.0;
+      int y1 = bullet.entity.y + FRAME_YSIZE/2.0;
+      int x2 = bullet.entity.x + bullet.entity.dx + FRAME_XSIZE/2.0;
+      int y2 = bullet.entity.y + bullet.entity.dy + FRAME_YSIZE/2.0;
       XDrawLine(dis, win, gc, x1, y1, x2, y2);
     }
   }
